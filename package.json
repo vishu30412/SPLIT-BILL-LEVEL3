@@ -1,0 +1,36 @@
+{
+  "name": "web3-fullstack-starter",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "test:frontend": "vitest run",
+    "contract:compile": "cargo build --manifest-path soroban/Cargo.toml --target wasm32v1-none --release",
+    "contract:test": "cargo test --manifest-path soroban/Cargo.toml",
+    "contract:deploy": "powershell -ExecutionPolicy Bypass -File scripts/deploy-soroban.ps1",
+    "contract:deploy:testnet": "powershell -ExecutionPolicy Bypass -File scripts/deploy-soroban.ps1 -Network testnet"
+  },
+  "dependencies": {
+    "@stellar/freighter-api": "^6.0.1",
+    "@stellar/stellar-sdk": "^16.0.1",
+    "next": "14.2.12",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.2.0",
+    "@testing-library/user-event": "^14.5.1",
+    "@types/node": "^20.14.15",
+    "@types/react": "^18.3.2",
+    "@types/react-dom": "^18.3.1",
+    "autoprefixer": "^10.4.20",
+    "jsdom": "^25.0.1",
+    "postcss": "^8.4.48",
+    "tailwindcss": "^3.4.10",
+    "typescript": "^5.6.3",
+    "vitest": "^2.1.8"
+  }
+}
