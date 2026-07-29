@@ -68,14 +68,14 @@ function formatHash(hash: string) {
 
 function statusPillClass(isActive: boolean, isSettled: boolean) {
   if (isSettled) {
-    return 'bg-emerald-500/15 text-emerald-200 border-emerald-500/30';
+    return 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30 shadow-[0_0_10px_rgba(16,185,129,0.2)]';
   }
 
   if (isActive) {
-    return 'bg-cyan-500/15 text-cyan-200 border-cyan-500/30';
+    return 'bg-fuchsia-500/15 text-fuchsia-300 border-fuchsia-500/30 shadow-[0_0_10px_rgba(217,70,239,0.2)]';
   }
 
-  return 'bg-slate-800 text-slate-300 border-slate-700';
+  return 'bg-zinc-800 text-zinc-400 border-zinc-700';
 }
 
 function participantStatus(participant: ParticipantSnapshot) {
@@ -442,40 +442,40 @@ export default function HomePage() {
   };
 
   return (
-    <main className="min-h-screen bg-[radial-gradient(circle_at_top,_rgba(34,211,238,0.18),_transparent_30%),linear-gradient(180deg,_#020617_0%,_#08111f_100%)] px-4 py-8 text-slate-100 sm:px-6 lg:px-8">
+    <main className="min-h-screen bg-transparent px-4 py-8 text-zinc-100 sm:px-6 lg:px-8">
       <div className="mx-auto flex max-w-7xl flex-col gap-6">
-        <section className="relative overflow-hidden rounded-[2rem] border border-slate-800/80 bg-slate-950/80 p-6 shadow-2xl shadow-cyan-950/20 backdrop-blur sm:p-8 lg:p-10">
-          <div className="absolute right-0 top-0 h-56 w-56 translate-x-1/3 -translate-y-1/3 rounded-full bg-cyan-400/10 blur-3xl" />
-          <div className="absolute bottom-0 left-0 h-56 w-56 -translate-x-1/3 translate-y-1/3 rounded-full bg-amber-400/10 blur-3xl" />
+        <section className="relative overflow-hidden rounded-[2rem] border border-zinc-800/80/80 bg-zinc-950/80 p-6 shadow-2xl shadow-fuchsia-950/20 backdrop-blur sm:p-8 lg:p-10">
+          <div className="absolute right-0 top-0 h-56 w-56 translate-x-1/3 -translate-y-1/3 rounded-full bg-fuchsia-400/10 blur-3xl" />
+          <div className="absolute bottom-0 left-0 h-56 w-56 -translate-x-1/3 translate-y-1/3 rounded-full bg-violet-400/10 blur-3xl" />
 
           <div className="relative grid gap-8 lg:grid-cols-[1.05fr_0.95fr]">
             <div className="space-y-6">
-              <span className="inline-flex rounded-full border border-cyan-400/30 bg-cyan-400/10 px-3 py-1 text-xs font-medium uppercase tracking-[0.35em] text-cyan-200">
+              <span className="inline-flex rounded-full border border-fuchsia-400/30 bg-fuchsia-400/10 px-3 py-1 text-xs font-medium uppercase tracking-[0.35em] text-fuchsia-200">
                 Split bill workspace
               </span>
               <div className="space-y-3">
                 <h1 className="max-w-2xl text-4xl font-semibold tracking-tight sm:text-5xl">
                   Create a bill, add people, collect shares, and settle it on Soroban.
                 </h1>
-                <p className="max-w-2xl text-base leading-7 text-slate-300 sm:text-lg">
+                <p className="max-w-2xl text-base leading-7 text-zinc-300 sm:text-lg">
                   Bill names stay in this session UI, while totals, participants, payments, and settlement are written to your contract.
                 </p>
               </div>
 
               <div className="grid gap-3 sm:grid-cols-3">
                 {stats.map((item) => (
-                  <div key={item.label} className="rounded-2xl border border-slate-800 bg-slate-900/60 p-4">
-                    <p className="text-lg font-semibold text-slate-50">{item.value}</p>
-                    <p className="mt-1 text-sm text-slate-400">{item.label}</p>
+                  <div key={item.label} className="rounded-2xl border border-zinc-800/80 bg-zinc-900/80/60 p-4">
+                    <p className="text-lg font-semibold text-white">{item.value}</p>
+                    <p className="mt-1 text-sm text-zinc-400">{item.label}</p>
                   </div>
                 ))}
               </div>
 
-              <div className="rounded-2xl border border-slate-800 bg-slate-900/70 p-4">
+              <div className="rounded-2xl border border-zinc-800/80 bg-zinc-900/80/70 p-4">
                 <div className="flex flex-wrap items-center justify-between gap-3">
                   <div>
-                    <p className="text-sm font-medium uppercase tracking-[0.3em] text-slate-400">Status</p>
-                    <p className="mt-1 text-slate-200">{status}</p>
+                    <p className="text-sm font-medium uppercase tracking-[0.3em] text-zinc-400">Status</p>
+                    <p className="mt-1 text-zinc-200">{status}</p>
                   </div>
                   <span
                     className={`rounded-full border px-3 py-1 text-xs font-medium ${
@@ -485,20 +485,20 @@ export default function HomePage() {
                     {connected ? 'Wallet connected' : providerAvailable ? 'Wallet detected' : 'Wallet pending'}
                   </span>
                 </div>
-                {walletAddress ? <p className="mt-3 break-all text-xs text-cyan-200">{walletAddress}</p> : null}
+                {walletAddress ? <p className="mt-3 break-all text-xs text-fuchsia-200">{walletAddress}</p> : null}
               </div>
 
               <div className="flex flex-wrap gap-3">
                 <button
                   onClick={connected ? scrollToCreateForm : handleWalletConnect}
                   disabled={loading}
-                  className="rounded-full bg-cyan-400 px-5 py-3 font-medium text-slate-950 transition hover:bg-cyan-300 disabled:cursor-not-allowed disabled:opacity-60"
+                  className="rounded-full bg-fuchsia-400 px-5 py-3 font-medium text-slate-950 transition hover:bg-fuchsia-300 disabled:cursor-not-allowed disabled:opacity-60"
                 >
                   {loading ? 'Working...' : connected ? 'Jump to form' : providerAvailable ? 'Connect wallet' : 'Connect Freighter'}
                 </button>
                 <a
                   href="#bills"
-                  className="rounded-full border border-slate-700 px-5 py-3 font-medium text-slate-200 transition hover:border-cyan-400 hover:text-cyan-200"
+                  className="rounded-full border border-zinc-700 px-5 py-3 font-medium text-zinc-200 transition hover:border-fuchsia-400 hover:text-fuchsia-200"
                 >
                   View bills
                 </a>
@@ -506,48 +506,48 @@ export default function HomePage() {
             </div>
 
             <div className="grid gap-4">
-              <div id="create-bill-form" className="rounded-3xl border border-slate-800 bg-slate-950/80 p-5">
+              <div id="create-bill-form" className="rounded-3xl border border-zinc-800/80 bg-zinc-950/80 p-5">
                 <h2 className="text-lg font-semibold">Create Bill</h2>
-                <p className="mt-1 text-sm text-slate-400">
+                <p className="mt-1 text-sm text-zinc-400">
                   The name is a local label. The total is written to the contract.
                 </p>
                 <div className="mt-5 space-y-4">
                   <label className="block space-y-2 text-sm">
-                    <span className="text-slate-300">Bill name</span>
+                    <span className="text-zinc-300">Bill name</span>
                     <input
                       value={billName}
                       onChange={(event) => setBillName(event.target.value)}
                       placeholder="Dinner at Kora"
-                      className="w-full rounded-2xl border border-slate-700 bg-slate-900/80 px-4 py-3 text-slate-100 outline-none transition placeholder:text-slate-500 focus:border-cyan-400"
+                      className="w-full rounded-2xl border border-zinc-700 bg-zinc-900/80/80 px-4 py-3 text-zinc-100 outline-none transition placeholder:text-white0 focus:border-fuchsia-400"
                     />
                   </label>
                   <label className="block space-y-2 text-sm">
-                    <span className="text-slate-300">Total amount</span>
+                    <span className="text-zinc-300">Total amount</span>
                     <input
                       value={billTotal}
                       onChange={(event) => setBillTotal(event.target.value)}
                       placeholder="1000"
                       inputMode="numeric"
-                      className="w-full rounded-2xl border border-slate-700 bg-slate-900/80 px-4 py-3 text-slate-100 outline-none transition placeholder:text-slate-500 focus:border-cyan-400"
+                      className="w-full rounded-2xl border border-zinc-700 bg-zinc-900/80/80 px-4 py-3 text-zinc-100 outline-none transition placeholder:text-white0 focus:border-fuchsia-400"
                     />
-                    <p className="text-xs text-slate-500">Use whole numbers that match your contract units, such as stroops.</p>
+                    <p className="text-xs text-white0">Use whole numbers that match your contract units, such as stroops.</p>
                   </label>
                   <button
                     onClick={handleCreateBill}
                     disabled={loading || !connected}
-                    className="w-full rounded-2xl bg-gradient-to-r from-cyan-400 to-emerald-400 px-4 py-3 font-medium text-slate-950 transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-60"
+                    className="w-full rounded-2xl bg-gradient-to-r from-fuchsia-400 to-emerald-400 px-4 py-3 font-medium text-slate-950 transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-60"
                   >
                     Create Bill
                   </button>
                 </div>
               </div>
 
-              <div className="rounded-3xl border border-slate-800 bg-slate-950/80 p-5">
+              <div className="rounded-3xl border border-zinc-800/80 bg-zinc-950/80 p-5">
                 <h2 className="text-lg font-semibold">Session notes</h2>
-                <p className="mt-2 text-sm leading-6 text-slate-400">
+                <p className="mt-2 text-sm leading-6 text-zinc-400">
                   Created bills are saved in this browser session so you can switch between them. The contract does not expose bill enumeration, so the list below is the session index.
                 </p>
-                <div className="mt-4 rounded-2xl border border-cyan-400/20 bg-cyan-400/10 p-4 text-sm text-cyan-100">
+                <div className="mt-4 rounded-2xl border border-fuchsia-400/20 bg-fuchsia-400/10 p-4 text-sm text-fuchsia-100">
                   Equal splits are stored per participant when they are added. The UI shows the current even split for the selected bill.
                 </div>
               </div>
@@ -556,17 +556,17 @@ export default function HomePage() {
         </section>
 
         <section id="bills" className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
-          <aside className="space-y-4 rounded-[2rem] border border-slate-800 bg-slate-950/70 p-5 shadow-xl shadow-slate-950/30">
+          <aside className="space-y-4 rounded-[2rem] border border-zinc-800/80 bg-zinc-950/70 p-5 shadow-xl shadow-slate-950/30">
             <div className="flex items-center justify-between gap-3">
               <div>
                 <h2 className="text-xl font-semibold">Created bills</h2>
-                <p className="text-sm text-slate-400">{bills.length} bill{bills.length === 1 ? '' : 's'} in this session</p>
+                <p className="text-sm text-zinc-400">{bills.length} bill{bills.length === 1 ? '' : 's'} in this session</p>
               </div>
             </div>
 
             <div className="space-y-3">
               {bills.length === 0 ? (
-                <div className="rounded-2xl border border-dashed border-slate-700 bg-slate-900/50 p-6 text-sm text-slate-400">
+                <div className="rounded-2xl border border-dashed border-zinc-700 bg-zinc-900/80/50 p-6 text-sm text-zinc-400">
                   No bills yet. Create one to start the split.
                 </div>
               ) : (
@@ -578,26 +578,26 @@ export default function HomePage() {
                       onClick={() => setSelectedBillId(bill.billId)}
                       className={`w-full rounded-2xl border p-4 text-left transition ${
                         active
-                          ? 'border-cyan-400/40 bg-cyan-400/10 shadow-lg shadow-cyan-950/20'
-                          : 'border-slate-800 bg-slate-900/50 hover:border-slate-700 hover:bg-slate-900/80'
+                          ? 'border-fuchsia-400/40 bg-fuchsia-400/10 shadow-lg shadow-fuchsia-950/20'
+                          : 'border-zinc-800/80 bg-zinc-900/80/50 hover:border-zinc-700 hover:bg-zinc-900/80/80'
                       }`}
                     >
                       <div className="flex items-start justify-between gap-4">
                         <div>
-                          <p className="font-medium text-slate-50">{billStorageLabel(bill)}</p>
-                          <p className="mt-1 text-xs text-slate-400">Bill ID {bill.billId}</p>
+                          <p className="font-medium text-white">{billStorageLabel(bill)}</p>
+                          <p className="mt-1 text-xs text-zinc-400">Bill ID {bill.billId}</p>
                         </div>
                         <span className={`rounded-full border px-2.5 py-1 text-[11px] ${statusPillClass(active, bill.settled)}`}>
                           {bill.settled ? 'Settled' : active ? 'Selected' : 'Open'}
                         </span>
                       </div>
-                      <div className="mt-4 grid grid-cols-2 gap-3 text-sm text-slate-300">
+                      <div className="mt-4 grid grid-cols-2 gap-3 text-sm text-zinc-300">
                         <div>
-                          <p className="text-slate-500">Total</p>
+                          <p className="text-white0">Total</p>
                           <p>{formatAmount(toBigInt(bill.total))}</p>
                         </div>
                         <div>
-                          <p className="text-slate-500">Paid</p>
+                          <p className="text-white0">Paid</p>
                           <p>{formatAmount(toBigInt(bill.paidTotal))}</p>
                         </div>
                       </div>
@@ -608,20 +608,20 @@ export default function HomePage() {
             </div>
           </aside>
 
-          <section className="space-y-6 rounded-[2rem] border border-slate-800 bg-slate-950/70 p-5 shadow-xl shadow-slate-950/30">
+          <section className="space-y-6 rounded-[2rem] border border-zinc-800/80 bg-zinc-950/70 p-5 shadow-xl shadow-slate-950/30">
             {selectedBill ? (
               <>
                 <div className="flex flex-wrap items-start justify-between gap-4">
                   <div>
                     <h2 className="text-2xl font-semibold">{billStorageLabel(selectedBill)}</h2>
-                    <p className="mt-1 text-sm text-slate-400">Contract-backed bill details and settlement controls.</p>
+                    <p className="mt-1 text-sm text-zinc-400">Contract-backed bill details and settlement controls.</p>
                   </div>
                   <div className="flex gap-2">
                     <span className={`rounded-full border px-3 py-1 text-xs font-medium ${statusPillClass(true, selectedBill.settled)}`}>
                       {selectedBill.settled ? 'Settled' : 'Open'}
                     </span>
                     {selectedBill.createTxHash ? (
-                      <span className="rounded-full border border-slate-700 bg-slate-900 px-3 py-1 text-xs text-slate-300">
+                      <span className="rounded-full border border-zinc-700 bg-zinc-900/80 px-3 py-1 text-xs text-zinc-300">
                         Create tx {formatHash(selectedBill.createTxHash)}
                       </span>
                     ) : null}
@@ -629,53 +629,53 @@ export default function HomePage() {
                 </div>
 
                 <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-                  <div className="rounded-2xl border border-slate-800 bg-slate-900/70 p-4">
-                    <p className="text-sm text-slate-400">Total amount</p>
+                  <div className="rounded-2xl border border-zinc-800/80 bg-zinc-900/80/70 p-4">
+                    <p className="text-sm text-zinc-400">Total amount</p>
                     <p className="mt-2 text-2xl font-semibold">{formatAmount(selectedBillTotal)}</p>
                   </div>
-                  <div className="rounded-2xl border border-slate-800 bg-slate-900/70 p-4">
-                    <p className="text-sm text-slate-400">Paid so far</p>
+                  <div className="rounded-2xl border border-zinc-800/80 bg-zinc-900/80/70 p-4">
+                    <p className="text-sm text-zinc-400">Paid so far</p>
                     <p className="mt-2 text-2xl font-semibold">{formatAmount(selectedBillPaid)}</p>
                   </div>
-                  <div className="rounded-2xl border border-slate-800 bg-slate-900/70 p-4">
-                    <p className="text-sm text-slate-400">Participants</p>
+                  <div className="rounded-2xl border border-zinc-800/80 bg-zinc-900/80/70 p-4">
+                    <p className="text-sm text-zinc-400">Participants</p>
                     <p className="mt-2 text-2xl font-semibold">{participantCount}</p>
                   </div>
-                  <div className="rounded-2xl border border-slate-800 bg-slate-900/70 p-4">
-                    <p className="text-sm text-slate-400">Per-person share</p>
+                  <div className="rounded-2xl border border-zinc-800/80 bg-zinc-900/80/70 p-4">
+                    <p className="text-sm text-zinc-400">Per-person share</p>
                     <p className="mt-2 text-2xl font-semibold">{participantCount > 0 ? formatAmount(currentShare) : '0'}</p>
                   </div>
                 </div>
 
                 <div className="grid gap-4 xl:grid-cols-[1fr_1fr]">
-                  <div className="rounded-3xl border border-slate-800 bg-slate-900/60 p-5">
+                  <div className="rounded-3xl border border-zinc-800/80 bg-zinc-900/80/60 p-5">
                     <h3 className="text-lg font-semibold">Add Participants</h3>
-                    <p className="mt-2 text-sm leading-6 text-slate-400">
+                    <p className="mt-2 text-sm leading-6 text-zinc-400">
                       This contract stores a fixed share per participant, so the UI calculates the equal split automatically when a new participant joins.
                     </p>
                     <div className="mt-4 space-y-4">
                       <label className="block space-y-2 text-sm">
-                        <span className="text-slate-300">Stellar wallet address</span>
+                        <span className="text-zinc-300">Stellar wallet address</span>
                         <input
                           value={participantAddress}
                           onChange={(event) => setParticipantAddress(event.target.value)}
                           placeholder="G..."
-                          className="w-full rounded-2xl border border-slate-700 bg-slate-950/80 px-4 py-3 text-slate-100 outline-none transition placeholder:text-slate-500 focus:border-cyan-400"
+                          className="w-full rounded-2xl border border-zinc-700 bg-zinc-950/80 px-4 py-3 text-zinc-100 outline-none transition placeholder:text-white0 focus:border-fuchsia-400"
                         />
                       </label>
                       <button
                         onClick={handleAddParticipant}
                         disabled={loading || !connectedIsOwner}
-                        className="w-full rounded-2xl border border-cyan-400/30 bg-cyan-400/10 px-4 py-3 font-medium text-cyan-100 transition hover:bg-cyan-400/15 disabled:cursor-not-allowed disabled:opacity-60"
+                        className="w-full rounded-2xl border border-fuchsia-400/30 bg-fuchsia-400/10 px-4 py-3 font-medium text-fuchsia-100 transition hover:bg-fuchsia-400/15 disabled:cursor-not-allowed disabled:opacity-60"
                       >
                         Add Participant
                       </button>
                     </div>
                   </div>
 
-                  <div className="rounded-3xl border border-slate-800 bg-slate-900/60 p-5">
+                  <div className="rounded-3xl border border-zinc-800/80 bg-zinc-900/80/60 p-5">
                     <h3 className="text-lg font-semibold">Pay Share</h3>
-                    <p className="mt-2 text-sm leading-6 text-slate-400">
+                    <p className="mt-2 text-sm leading-6 text-zinc-400">
                       The connected wallet can pay its remaining share when it appears in the participant list.
                     </p>
                     <div className="mt-4 space-y-4">
@@ -685,14 +685,14 @@ export default function HomePage() {
                           {formatAmount(toBigInt(connectedParticipantRecord.share) - toBigInt(connectedParticipantRecord.paid))}
                         </div>
                       ) : (
-                        <div className="rounded-2xl border border-slate-700 bg-slate-950/70 p-4 text-sm text-slate-400">
+                        <div className="rounded-2xl border border-zinc-700 bg-zinc-950/70 p-4 text-sm text-zinc-400">
                           Connect a participant wallet to pay a share.
                         </div>
                       )}
                       <button
                         onClick={handlePayShare}
                         disabled={loading || !connectedParticipantRecord}
-                        className="w-full rounded-2xl bg-gradient-to-r from-emerald-400 to-cyan-400 px-4 py-3 font-medium text-slate-950 transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-60"
+                        className="w-full rounded-2xl bg-gradient-to-r from-emerald-400 to-fuchsia-400 px-4 py-3 font-medium text-slate-950 transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-60"
                       >
                         Pay My Share
                       </button>
@@ -701,16 +701,16 @@ export default function HomePage() {
                 </div>
 
                 <div className="grid gap-4 xl:grid-cols-[1fr_0.9fr]">
-                  <div className="rounded-3xl border border-slate-800 bg-slate-900/60 p-5">
+                  <div className="rounded-3xl border border-zinc-800/80 bg-zinc-900/80/60 p-5">
                     <div className="flex items-center justify-between gap-3">
                       <h3 className="text-lg font-semibold">Participants</h3>
-                      <p className="text-sm text-slate-400">
+                      <p className="text-sm text-zinc-400">
                         {participantCount > 0 ? `${participantCount} total` : 'No participants yet'}
                       </p>
                     </div>
                     <div className="mt-4 space-y-3">
                       {selectedBillParticipants.length === 0 ? (
-                        <div className="rounded-2xl border border-dashed border-slate-700 bg-slate-950/60 p-6 text-sm text-slate-400">
+                        <div className="rounded-2xl border border-dashed border-zinc-700 bg-zinc-950/60 p-6 text-sm text-zinc-400">
                           Add the first participant to begin splitting the bill.
                         </div>
                       ) : (
@@ -722,15 +722,15 @@ export default function HomePage() {
                           return (
                             <div
                               key={participant.address}
-                              className="rounded-2xl border border-slate-800 bg-slate-950/70 p-4"
+                              className="rounded-2xl border border-zinc-800/80 bg-zinc-950/70 p-4"
                             >
                               <div className="flex flex-wrap items-start justify-between gap-3">
                                 <div>
-                                  <p className="break-all text-sm font-medium text-slate-50">
+                                  <p className="break-all text-sm font-medium text-white">
                                     {participant.address}
                                     {isConnectedWallet ? ' (you)' : ''}
                                   </p>
-                                  <p className="mt-1 text-xs text-slate-400">
+                                  <p className="mt-1 text-xs text-zinc-400">
                                     Share {formatAmount(share)} | Paid {formatAmount(paid)}
                                   </p>
                                 </div>
@@ -739,8 +739,8 @@ export default function HomePage() {
                                     participantStatus(participant) === 'Paid'
                                       ? 'border-emerald-400/30 bg-emerald-400/10 text-emerald-200'
                                       : participantStatus(participant) === 'Partial'
-                                        ? 'border-amber-400/30 bg-amber-400/10 text-amber-200'
-                                        : 'border-slate-700 bg-slate-900 text-slate-300'
+                                        ? 'border-violet-400/30 bg-violet-400/10 text-violet-200'
+                                        : 'border-zinc-700 bg-zinc-900/80 text-zinc-300'
                                   }`}
                                 >
                                   {participantStatus(participant)}
@@ -753,48 +753,48 @@ export default function HomePage() {
                     </div>
                   </div>
 
-                  <div className="space-y-4 rounded-3xl border border-slate-800 bg-slate-900/60 p-5">
+                  <div className="space-y-4 rounded-3xl border border-zinc-800/80 bg-zinc-900/80/60 p-5">
                     <h3 className="text-lg font-semibold">Bill status</h3>
                     <div className="grid gap-3 sm:grid-cols-2">
-                      <div className="rounded-2xl border border-slate-800 bg-slate-950/70 p-4">
-                        <p className="text-sm text-slate-400">Owner</p>
-                        <p className="mt-2 break-all text-sm text-slate-100">{selectedBill.owner}</p>
+                      <div className="rounded-2xl border border-zinc-800/80 bg-zinc-950/70 p-4">
+                        <p className="text-sm text-zinc-400">Owner</p>
+                        <p className="mt-2 break-all text-sm text-zinc-100">{selectedBill.owner}</p>
                       </div>
-                      <div className="rounded-2xl border border-slate-800 bg-slate-950/70 p-4">
-                        <p className="text-sm text-slate-400">Last transaction</p>
-                        <p className="mt-2 break-all text-sm text-slate-100">
+                      <div className="rounded-2xl border border-zinc-800/80 bg-zinc-950/70 p-4">
+                        <p className="text-sm text-zinc-400">Last transaction</p>
+                        <p className="mt-2 break-all text-sm text-zinc-100">
                           {selectedBill.lastTxHash ? formatHash(selectedBill.lastTxHash) : 'Waiting for activity'}
                         </p>
                       </div>
                     </div>
 
-                    <div className="rounded-2xl border border-slate-800 bg-slate-950/70 p-4 text-sm text-slate-300">
+                    <div className="rounded-2xl border border-zinc-800/80 bg-zinc-950/70 p-4 text-sm text-zinc-300">
                       <div className="flex items-center justify-between gap-3">
                         <span>Settled</span>
-                        <span className={selectedBill.settled ? 'text-emerald-300' : 'text-amber-300'}>
+                        <span className={selectedBill.settled ? 'text-emerald-300' : 'text-violet-300'}>
                           {selectedBill.settled ? 'Yes' : 'No'}
                         </span>
                       </div>
                       <div className="mt-3 flex items-center justify-between gap-3">
                         <span>Ready to settle</span>
-                        <span className={canSettle ? 'text-emerald-300' : 'text-slate-400'}>{canSettle ? 'Yes' : 'Not yet'}</span>
+                        <span className={canSettle ? 'text-emerald-300' : 'text-zinc-400'}>{canSettle ? 'Yes' : 'Not yet'}</span>
                       </div>
                     </div>
 
-                    <div data-testid="transaction-history-panel" className="rounded-2xl border border-slate-800 bg-slate-950/70 p-4">
+                    <div data-testid="transaction-history-panel" className="rounded-2xl border border-zinc-800/80 bg-zinc-950/70 p-4">
                       <div className="flex items-center justify-between gap-3">
-                        <h4 className="font-medium text-slate-100">Transaction history</h4>
-                        <span className="text-xs text-slate-500">{selectedBillHistory.length} entries</span>
+                        <h4 className="font-medium text-zinc-100">Transaction history</h4>
+                        <span className="text-xs text-white0">{selectedBillHistory.length} entries</span>
                       </div>
                       <div className="mt-3 space-y-2">
                         {selectedBillHistory.length === 0 ? (
-                          <p className="text-sm text-slate-400">No submitted transactions yet.</p>
+                          <p className="text-sm text-zinc-400">No submitted transactions yet.</p>
                         ) : (
                           selectedBillHistory.map((entry) => (
-                            <div key={`${entry.action}-${entry.hash}-${entry.createdAt}`} className="rounded-xl border border-slate-800 bg-slate-900/80 px-3 py-2 text-sm">
+                            <div key={`${entry.action}-${entry.hash}-${entry.createdAt}`} className="rounded-xl border border-zinc-800/80 bg-zinc-900/80/80 px-3 py-2 text-sm">
                               <div className="flex items-start justify-between gap-3">
-                                <span className="font-medium text-slate-100">{entry.action}</span>
-                                <span className="ml-3 break-all text-right text-slate-400">{entry.hash}</span>
+                                <span className="font-medium text-zinc-100">{entry.action}</span>
+                                <span className="ml-3 break-all text-right text-zinc-400">{entry.hash}</span>
                               </div>
                             </div>
                           ))
@@ -806,12 +806,12 @@ export default function HomePage() {
                       <button
                         onClick={handleSettleBill}
                         disabled={loading}
-                        className="w-full rounded-2xl bg-gradient-to-r from-amber-300 to-cyan-300 px-4 py-3 font-medium text-slate-950 transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-60"
+                        className="w-full rounded-2xl bg-gradient-to-r from-violet-300 to-fuchsia-300 px-4 py-3 font-medium text-slate-950 transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-60"
                       >
                         Settle Bill
                       </button>
                     ) : (
-                      <div className="rounded-2xl border border-dashed border-slate-700 bg-slate-950/60 p-4 text-sm text-slate-400">
+                      <div className="rounded-2xl border border-dashed border-zinc-700 bg-zinc-950/60 p-4 text-sm text-zinc-400">
                         Settle becomes available once every participant has paid their share.
                       </div>
                     )}
@@ -819,8 +819,8 @@ export default function HomePage() {
                 </div>
               </>
             ) : (
-              <div className="flex min-h-[30rem] flex-col items-start justify-center rounded-[1.5rem] border border-dashed border-slate-700 bg-slate-950/50 p-8 text-slate-400">
-                <h2 className="text-2xl font-semibold text-slate-100">No bill selected</h2>
+              <div className="flex min-h-[30rem] flex-col items-start justify-center rounded-[1.5rem] border border-dashed border-zinc-700 bg-zinc-950/50 p-8 text-zinc-400">
+                <h2 className="text-2xl font-semibold text-zinc-100">No bill selected</h2>
                 <p className="mt-2 max-w-xl leading-7">
                   Create a bill to bring up participant management, share calculations, payment buttons, and settlement controls.
                 </p>
