@@ -1,4 +1,5 @@
-import { getNetworkDetails, isConnected, requestAccess } from '@stellar/freighter-api';
+import { StellarWalletsKit, Networks } from '@creit.tech/stellar-wallets-kit';
+import { defaultModules } from '@creit.tech/stellar-wallets-kit/modules/utils';
 
 export type WalletState = {
   address: string | null;
@@ -6,14 +7,16 @@ export type WalletState = {
   providerAvailable: boolean;
 };
 
-const STELLAR_TESTNET_NETWORK = 'Test SDF Network ; September 2015';
-const TESTNET_NETWORK_NAMES = new Set(['TESTNET', 'TEST NET']);
+let isInitialized = false;
 
-function isTestnetNetwork(network: { network?: string; networkPassphrase?: string }) {
-  const networkName = (network.network || '').trim().toUpperCase();
-  const networkPassphrase = (network.networkPassphrase || '').trim();
-
-  return TESTNET_NETWORK_NAMES.has(networkName) || networkPassphrase === STELLAR_TESTNET_NETWORK;
+function initKit() {
+  if (!isInitialized && typeof window !== 'undefined') {
+    StellarWalletsKit.init({
+      network: Networks.TESTNET,
+      modules: defaultModules(),
+    });
+    isInitialized = true;
+  }
 }
 
 export async function connectWallet(): Promise<WalletState> {
@@ -21,37 +24,17 @@ export async function connectWallet(): Promise<WalletState> {
     throw new Error('Wallet connection is only available in the browser.');
   }
 
+  initKit();
+
   try {
-    const connectionStatus = await isConnected();
-    if (connectionStatus.error) {
-      console.error('Freighter connection check failed:', connectionStatus.error);
-    }
-
-    const access = await requestAccess();
-    if (access.error || !access.address) {
-      console.error('Freighter access failed:', access.error);
-      throw new Error('Freighter wallet connection was declined or unavailable. Install Freighter and approve the connection prompt to continue.');
-    }
-
-    const network = await getNetworkDetails();
-    if (network.error) {
-      console.error('Freighter network check failed:', network.error);
-      throw new Error('Unable to verify the Freighter network. Switch Freighter to Test SDF Network ; September 2015.');
-    }
-
-    console.log('Freighter network details:', network);
-
-    if (!isTestnetNetwork(network)) {
-      throw new Error(`Switch Freighter to ${STELLAR_TESTNET_NETWORK} to use this demo.`);
-    }
-
+    const { address } = await StellarWalletsKit.authModal();
     return {
-      address: access.address,
+      address,
       connected: true,
-      providerAvailable: Boolean(connectionStatus.isConnected || access.address),
+      providerAvailable: true,
     };
   } catch (error) {
-    console.error('Freighter wallet access failed:', error);
+    console.error('Wallet access failed:', error);
     throw error;
   }
 }

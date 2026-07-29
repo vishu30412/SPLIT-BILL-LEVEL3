@@ -42,7 +42,7 @@ const SESSION_KEY = 'split-bill-session-bills';
 
 const stats = [
   { label: 'Session bills', value: 'Local + live' },
-  { label: 'Wallet flow', value: 'Freighter' },
+  { label: 'Wallet flow', value: 'Wallet' },
   { label: 'Contract state', value: 'Soroban read/write' },
 ];
 
@@ -94,7 +94,7 @@ function participantStatus(participant: ParticipantSnapshot) {
 }
 
 export default function HomePage() {
-  const [status, setStatus] = useState('Connect Freighter to start creating split bills.');
+  const [status, setStatus] = useState('Connect Wallet to start creating split bills.');
   const [loading, setLoading] = useState(false);
   const [connected, setConnected] = useState(false);
   const [walletAddress, setWalletAddress] = useState<string | null>(null);
@@ -226,7 +226,7 @@ export default function HomePage() {
 
     try {
       if (!walletAddress) {
-        throw new Error('Connect your Freighter wallet first.');
+        throw new Error('Connect your Wallet wallet first.');
       }
 
       const parsedTotal = toBigInt(billTotal);
@@ -288,7 +288,7 @@ export default function HomePage() {
 
     try {
       if (!walletAddress) {
-        throw new Error('Connect your Freighter wallet first.');
+        throw new Error('Connect your Wallet wallet first.');
       }
 
       if (!selectedBill) {
@@ -359,7 +359,7 @@ export default function HomePage() {
 
     try {
       if (!walletAddress) {
-        throw new Error('Connect your Freighter wallet first.');
+        throw new Error('Connect your Wallet wallet first.');
       }
 
       if (!selectedBillIdValue || !selectedBill) {
@@ -406,7 +406,7 @@ export default function HomePage() {
 
     try {
       if (!walletAddress) {
-        throw new Error('Connect your Freighter wallet first.');
+        throw new Error('Connect your Wallet wallet first.');
       }
 
       if (!selectedBillIdValue || !selectedBill) {
@@ -494,7 +494,7 @@ export default function HomePage() {
                   disabled={loading}
                   className="rounded-full bg-fuchsia-400 px-5 py-3 font-medium text-slate-950 transition hover:bg-fuchsia-300 disabled:cursor-not-allowed disabled:opacity-60"
                 >
-                  {loading ? 'Working...' : connected ? 'Jump to form' : providerAvailable ? 'Connect wallet' : 'Connect Freighter'}
+                  {loading ? 'Working...' : connected ? 'Jump to form' : providerAvailable ? 'Connect wallet' : 'Connect Wallet'}
                 </button>
                 <a
                   href="#bills"

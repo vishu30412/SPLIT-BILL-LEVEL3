@@ -1,4 +1,4 @@
-import { signTransaction } from '@stellar/freighter-api';
+import { StellarWalletsKit } from '@creit.tech/stellar-wallets-kit';
 import { Address, BASE_FEE, Contract, Networks, TransactionBuilder, nativeToScVal, scValToNative } from '@stellar/stellar-sdk';
 import { assembleTransaction, Server } from '@stellar/stellar-sdk/rpc';
 import { SOROBAN_RPC_URL, SOROBAN_TESTNET_PASSPHRASE, SPLIT_BILL_CONTRACT_ID } from './contract-config';
@@ -82,11 +82,11 @@ async function submitContractCall(walletAddress: string, method: string, args: C
   const { server, transaction } = await buildContractCall(walletAddress, method, args);
   const simulation = await server.simulateTransaction(transaction);
   const prepared = assembleTransaction(transaction, simulation).build();
-  const signed = await signTransaction(prepared.toXDR(), { address: walletAddress, networkPassphrase: SOROBAN_TESTNET_PASSPHRASE });
+  const signed = await StellarWalletsKit.signTransaction(prepared.toXDR(), { networkPassphrase: SOROBAN_TESTNET_PASSPHRASE, address: walletAddress });
 
-  if (signed.error || !signed.signedTxXdr) {
-    console.error('Freighter transaction signing failed:', signed.error);
-    throw new Error(signed.error?.message || 'Freighter did not sign the Soroban transaction.');
+  if (!signed.signedTxXdr) {
+    console.error('Wallet transaction signing failed:', signed);
+    throw new Error('Wallet did not sign the Soroban transaction.');
   }
 
   const signedTransaction = TransactionBuilder.fromXDR(signed.signedTxXdr, Networks.TESTNET);
