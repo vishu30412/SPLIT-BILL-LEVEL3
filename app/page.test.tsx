@@ -36,7 +36,7 @@ describe('HomePage', () => {
     render(<HomePage />);
 
     expect(screen.getByText(/split bill workspace/i)).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /connect freighter/i })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /connect wallet/i })).toBeInTheDocument();
     expect(screen.getByLabelText(/bill name/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/total amount/i)).toBeInTheDocument();
   });
@@ -49,7 +49,7 @@ describe('HomePage', () => {
     const user = userEvent.setup();
     render(<HomePage />);
 
-    await user.click(screen.getByRole('button', { name: /connect freighter/i }));
+    await user.click(screen.getByRole('button', { name: /connect wallet/i }));
 
     expect(await screen.findByText(/Install Freighter and approve the connection prompt/i)).toBeInTheDocument();
   });
@@ -94,7 +94,7 @@ describe('HomePage', () => {
     const user = userEvent.setup();
     render(<HomePage />);
 
-    await user.click(screen.getByRole('button', { name: /connect freighter/i }));
+    await user.click(screen.getByRole('button', { name: /connect wallet/i }));
     await user.type(screen.getByLabelText(/bill name/i), 'Dinner')
     await user.type(screen.getByLabelText(/total amount/i), '1000');
     await user.click(screen.getByRole('button', { name: /create bill/i }));
