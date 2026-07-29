@@ -1,92 +1,131 @@
+# Split Bill Calculator - Stellar dApp
 
-# Split Bill Calculator
+A decentralized application (dApp) built on the Stellar Testnet for tracking shared bills, splitting expenses among participants, collecting payments, and settling the final bill using a custom Soroban smart contract.
 
-A Stellar Testnet dApp for tracking shared bills with a Soroban smart contract and Freighter wallet signing.
+## 🔗 Live Links
 
-## Smart Contract Source Code
+- **Live Demo:** [split-bill-level-3.vercel.app](https://split-bill-level-3.vercel.app/)
+- **Contract ID:** `CA2HPE7YPW5WCE7DFHDHCNGVVRKMITQD7AYBXNWM2GFEYF3ZURT6PZA6`
+- **View on Stellar Expert:** [Stellar Expert Explorer](https://stellar.expert/explorer/testnet/contract/CA2HPE7YPW5WCE7DFHDHCNGVVRKMITQD7AYBXNWM2GFEYF3ZURT6PZA6)
 
-The complete project-specific Soroban smart contract source is available at [`soroban/src/lib.rs`](soroban/src/lib.rs). It implements `create_bill`, `add_participant`, `pay_share`, `settle_bill`, `get_bill`, and `get_participant`, including authorization, persistent storage, input validation, custom errors, and Rust tests.
+## ✨ Features
 
-Verify contract compilation and run the contract tests from the repository root:
+- **Decentralized Bill Management:** Create bills, add participants, and track payments entirely on-chain.
+- **Soroban Smart Contract:** Written in Rust, featuring state management, custom errors, authorization checks, and rigorous testing.
+- **Wallet Integration:** Supports multiple Stellar wallets (Freighter, xBull, Albedo, etc.) using the `@creit.tech/stellar-wallets-kit` library.
+- **Modern UI:** Built with Next.js and Tailwind CSS for a responsive, sleek, and dynamic user experience.
+- **CI/CD Pipeline:** Automated testing and build checks using GitHub Actions.
 
-```sh
-npm run contract:compile
-npm run contract:test
+## 📂 Folder Structure
+
+```text
+SPLIT-BILL-LEVEL3/
+├── .github/
+│   └── workflows/         # GitHub Actions CI/CD workflows for testing and building
+├── app/
+│   ├── contract.ts        # Soroban RPC transaction lifecycle (build, sign, submit)
+│   ├── contract-config.ts # Network and contract ID configuration constants
+│   ├── globals.css        # Global Tailwind styles
+│   ├── layout.tsx         # Next.js root layout
+│   ├── page.tsx           # Main application UI and React state management
+│   ├── page.test.tsx      # Frontend Vitest UI testing
+│   ├── wallet.ts          # Stellar Wallets Kit integration logic
+│   └── wallet.test.ts     # Wallet mock tests
+├── scripts/
+│   └── deploy-soroban.ps1 # PowerShell script for Soroban contract compilation and deployment
+├── soroban/               # Soroban Smart Contract workspace
+│   ├── src/
+│   │   └── lib.rs         # Core smart contract logic and Rust unit tests
+│   ├── Cargo.toml         # Rust dependencies and project metadata
+│   └── Cargo.lock         # Locked dependencies
+├── public/                # Static assets
+├── .env.example           # Example environment variables
+├── package.json           # Node.js dependencies and npm scripts
+├── tailwind.config.ts     # Tailwind CSS configuration
+├── tsconfig.json          # TypeScript configuration
+└── vitest.config.mjs      # Vitest configuration for frontend tests
 ```
 
-## Features
+## 🚀 Getting Started
 
-- Soroban Rust contract for `create_bill`, `add_participant`, `pay_share`, and `settle_bill`
-- Freighter integration on Stellar Testnet (`Test SDF Network ; September 2015`)
-- Soroban RPC simulation, transaction assembly, wallet signing, submission, and confirmation polling
-- Responsive Next.js interface with transaction loading and error states
-- Rust contract tests, frontend tests, and GitHub Actions CI
+### Prerequisites
 
-## Run Locally
+- Node.js (v18 or higher recommended)
+- Rust toolchain (`rustup`)
+- Web3 Wallet (e.g., Freighter browser extension) configured for Stellar Testnet
 
-1. Install JavaScript dependencies: `npm install`
-2. Install Rust and the `wasm32v1-none` target: `rustup target add wasm32v1-none`
-3. Copy `.env.example` to `.env` and add your deployed contract ID.
-4. Run contract tests: `npm run contract:test`
-5. Run frontend tests: `npm run test:frontend`
-6. Start the app: `npm run dev`
+### 1. Install Dependencies
 
-The frontend can connect without a deployed contract, but creating a bill requires `NEXT_PUBLIC_SPLIT_BILL_CONTRACT_ID` in `.env`.
-
-## Deploy to Stellar Testnet
-
-Install the Stellar CLI, create or select a funded Testnet identity, then run:
-
-```powershell
-npm run contract:deploy -- -SourceAccount your-testnet-identity -Network testnet
+Install JavaScript dependencies:
+```bash
+npm install
 ```
 
-The command builds `soroban/src/lib.rs`, uploads the WASM, deploys it, and prints the contract ID. Copy that value into `.env`:
+Install the required Rust target for Soroban:
+```bash
+rustup target add wasm32v1-none
+```
 
+### 2. Configure Environment
+
+Copy the example environment file and ensure the contract ID is set:
+```bash
+cp .env.example .env.local
+```
+Inside `.env.local`, you should have:
 ```dotenv
-NEXT_PUBLIC_SPLIT_BILL_CONTRACT_ID=CA3Q3TVF7YIUU5BCP7KLAUYBYND4TVRWAJODKCPU4LLLS4JFPYVAIGHG
+NEXT_PUBLIC_SPLIT_BILL_CONTRACT_ID=CA2HPE7YPW5WCE7DFHDHCNGVVRKMITQD7AYBXNWM2GFEYF3ZURT6PZA6
 NEXT_PUBLIC_SOROBAN_RPC_URL=https://soroban-testnet.stellar.org:443
 ```
 
-Restart `npm run dev`, connect Freighter while it is set to Testnet, then select **Create test bill**. Freighter signs the simulated `create_bill` transaction and the page displays the confirmed transaction hash.
+### 3. Run Tests
 
-## Project Structure
+To verify the smart contract logic works correctly:
+```bash
+npm run contract:test
+```
 
-- `soroban/src/lib.rs` - Split bill Soroban contract and its Rust tests.
-- `app/contract.ts` - Soroban RPC transaction lifecycle and Freighter signing.
-- `app/wallet.ts` - Freighter access and Testnet verification.
-- `scripts/deploy-soroban.ps1` - Testnet/Mainnet deployment helper.
-- `.github/workflows/ci.yml` - Rust contract build/tests plus frontend tests/build.
+To run the frontend Vitest suite:
+```bash
+npm run test:frontend
+```
 
-## CI/CD
+### 4. Start the Application
 
-Every push and pull request runs the Soroban WASM build, Rust contract tests, frontend tests, and the Next.js production build.
+Start the Next.js development server:
+```bash
+npm run dev
+```
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-## Live Demo
+## 🛠️ Deploying Your Own Contract
 
-[split-bill-level-3.vercel.app](https://split-bill-level-3.vercel.app/)
+If you want to deploy a fresh instance of the smart contract to the Stellar Testnet:
 
-## Deployment
+1. Install the Stellar CLI.
+2. Create or select a funded Testnet identity.
+3. Run the deployment script:
+```powershell
+npm run contract:deploy -- -SourceAccount your-testnet-identity -Network testnet
+```
+4. The command will build the WASM file, deploy it, and print the new contract ID. 
+5. Update your `NEXT_PUBLIC_SPLIT_BILL_CONTRACT_ID` in `.env.local` or `app/contract-config.ts` with this new ID.
 
-- Contract ID: `CA3Q3TVF7YIUU5BCP7KLAUYBYND4TVRWAJODKCPU4LLLS4JFPYVAIGHG`
-- WASM upload hash: [`687be48409de0e37420b3935d16d40a01e785bdd5b6b7c7683cc0ea2b389b78b`](https://stellar.expert/explorer/testnet/tx/687be48409de0e37420b3935d16d40a01e785bdd5b6b7c7683cc0ea2b389b78b)
-- Contract deploy hash: [`1c4319558820643d8d7b7a1126a1f612428d091d254ead833215dcb62da48ee0`](https://stellar.expert/explorer/testnet/tx/1c4319558820643d8d7b7a1126a1f612428d091d254ead833215dcb62da48ee0)
-- Contract page on Stellar Expert: [`CA3Q3TVF7YIUU5BCP7KLAUYBYND4TVRWAJODKCPU4LLLS4JFPYVAIGHG`](https://stellar.expert/explorer/testnet/contract/CA3Q3TVF7YIUU5BCP7KLAUYBYND4TVRWAJODKCPU4LLLS4JFPYVAIGHG)
+## 📜 Smart Contract Source Code
 
-## Live Transaction Example
+The complete project-specific Soroban smart contract source is available at [`soroban/src/lib.rs`](soroban/src/lib.rs). It implements the following core functions:
+- `create_bill`: Initializes a new bill with an owner and total amount.
+- `add_participant`: Adds a user to the bill with a required share amount.
+- `pay_share`: Records partial or full payments from participants.
+- `settle_bill`: Finalizes the bill once all shares are paid.
+- `get_bill` & `get_participant`: View functions for retrieving on-chain state.
 
-- Transaction hash: [`eac3d1091a93a8de305b180789094e4994ed2262141f29e97222cdb6afd942b2`](https://stellar.expert/explorer/testnet/tx/eac3d1091a93a8de305b180789094e4994ed2262141f29e97222cdb6afd942b2)
-- Latest live transaction hash: [`b6ad77e795de80a751cde31b5baa349833d45185d7454a3dd2398256938463c1`](https://stellar.expert/explorer/testnet/tx/b6ad77e795de80a751cde31b5baa349833d45185d7454a3dd2398256938463c1)
+## 📸 Media & Examples
 
-## Submission Artifacts
-
-- Contract interaction transaction: create a bill and copy the hash shown in the UI.
-- Mobile responsive UI screenshot:<img width="262" height="582" alt="image" src="https://github.com/user-attachments/assets/8e3c5616-dd46-4c9f-a67b-614033b84707" />
-
-
-- CI/CD pipeline screenshot:<img width="1885" height="896" alt="Screenshot 2026-07-11 143810" src="https://github.com/user-attachments/assets/0689ee41-0f2e-4e64-9a36-2d723f123693" />
-
-Test Output(Screenshot):<img width="1187" height="501" alt="Screenshot 2026-07-11 144714" src="https://github.com/user-attachments/assets/0cc60917-0d6d-4f70-83d2-56d831e36813" />
-
-
-- Demo video: https://drive.google.com/file/d/1_Da1xqnTmk6kzbiyagL5sUN6yidjOeFM/view?usp=sharing
+- **Mobile responsive UI screenshot:**
+  <img width="262" height="582" alt="image" src="https://github.com/user-attachments/assets/8e3c5616-dd46-4c9f-a67b-614033b84707" />
+- **CI/CD pipeline screenshot:**
+  <img width="1885" height="896" alt="Screenshot" src="https://github.com/user-attachments/assets/0689ee41-0f2e-4e64-9a36-2d723f123693" />
+- **Test Output Screenshot:**
+  <img width="1187" height="501" alt="Screenshot" src="https://github.com/user-attachments/assets/0cc60917-0d6d-4f70-83d2-56d831e36813" />
+- **Demo video:** [Google Drive Link](https://drive.google.com/file/d/1_Da1xqnTmk6kzbiyagL5sUN6yidjOeFM/view?usp=sharing)
