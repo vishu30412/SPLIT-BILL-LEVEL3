@@ -223,6 +223,7 @@ export default function HomePage() {
   const handleCreateBill = async () => {
     setLoading(true);
     setStatus('Preparing create_bill transaction...');
+    let billIdStr = '';
 
     try {
       if (!walletAddress) {
@@ -238,6 +239,7 @@ export default function HomePage() {
       while (bills.some((bill) => bill.billId === billId.toString())) {
         billId += 1n;
       }
+      billIdStr = billId.toString();
 
       const createdBill: BillSnapshot = {
         billId: billId.toString(),
@@ -277,6 +279,8 @@ export default function HomePage() {
     } catch (error) {
       console.error('Create bill failed:', error);
       setStatus(error instanceof Error ? error.message : 'Bill creation failed.');
+      setBills((currentBills) => currentBills.filter((bill) => bill.billId !== billIdStr));
+      setSelectedBillId((current) => current === billIdStr ? null : current);
     } finally {
       setLoading(false);
     }
@@ -502,6 +506,17 @@ export default function HomePage() {
                 >
                   View bills
                 </a>
+                <button
+                  onClick={() => {
+                    sessionStorage.removeItem('split_bills');
+                    setBills([]);
+                    setSelectedBillId(null);
+                    setStatus('Local data cleared.');
+                  }}
+                  className="rounded-full border border-zinc-800 px-5 py-3 font-medium text-zinc-400 transition hover:border-red-500/50 hover:text-red-400"
+                >
+                  Clear Data
+                </button>
               </div>
             </div>
 
