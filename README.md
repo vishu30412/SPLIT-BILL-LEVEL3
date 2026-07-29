@@ -64,7 +64,7 @@ Every push and pull request runs the Soroban WASM build, Rust contract tests, fr
 
 ## Live Demo
 
-[split-bill-calculator-self.vercel.app](https://split-bill-calculator-self.vercel.app/)
+[split-bill-level-3.vercel.app](https://split-bill-level-3.vercel.app/)
 
 ## Deployment
 
