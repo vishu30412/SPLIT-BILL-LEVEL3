@@ -9,6 +9,7 @@ import {
   payShareOnChain,
   settleBillOnChain,
 } from './contract';
+import { SPLIT_BILL_CONTRACT_ID } from './contract-config';
 import { connectWallet } from './wallet';
 
 type ParticipantSnapshot = {
@@ -505,6 +506,14 @@ export default function HomePage() {
                   className="rounded-full border border-zinc-700 px-5 py-3 font-medium text-zinc-200 transition hover:border-fuchsia-400 hover:text-fuchsia-200"
                 >
                   View bills
+                </a>
+                <a
+                  href={`https://stellar.expert/explorer/testnet/contract/${SPLIT_BILL_CONTRACT_ID}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-full border border-zinc-800 px-5 py-3 font-medium text-blue-400 transition hover:border-blue-500/50 hover:text-blue-300"
+                >
+                  View on Stellar Expert
                 </a>
                 <button
                   onClick={() => {
