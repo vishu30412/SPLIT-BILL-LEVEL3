@@ -123,8 +123,10 @@ The complete project-specific Soroban smart contract source is available at [`so
 ## 📸 Media & Examples
 
 - **Desktop UI screenshot:**
-  *(Placeholder: Please upload your desktop screenshot to GitHub and paste the image link here)*
+  <img width="1920" height="1020" alt="image" src="https://github.com/user-attachments/assets/bc4067d6-229a-4b6b-aa7b-15c681973968" />
+
 - **Mobile responsive UI screenshot:**
+  
   <img width="262" height="582" alt="image" src="https://github.com/user-attachments/assets/8e3c5616-dd46-4c9f-a67b-614033b84707" />
 - **CI/CD pipeline screenshot:**
   <img width="1885" height="896" alt="Screenshot" src="https://github.com/user-attachments/assets/0689ee41-0f2e-4e64-9a36-2d723f123693" />
