@@ -132,4 +132,4 @@ The complete project-specific Soroban smart contract source is available at [`so
   <img width="1885" height="896" alt="Screenshot" src="https://github.com/user-attachments/assets/0689ee41-0f2e-4e64-9a36-2d723f123693" />
 - **Test Output Screenshot:**
   <img width="1187" height="501" alt="Screenshot" src="https://github.com/user-attachments/assets/0cc60917-0d6d-4f70-83d2-56d831e36813" />
-- **Demo video:** [Google Drive Link](https://drive.google.com/file/d/1_Da1xqnTmk6kzbiyagL5sUN6yidjOeFM/view?usp=sharing)
+- **Demo video:** [Google Drive Link](https://drive.google.com/file/d/1jjZIsBx2Y0k0d1TuS6M7AsjcUXULPl7H/view?usp=sharing)
